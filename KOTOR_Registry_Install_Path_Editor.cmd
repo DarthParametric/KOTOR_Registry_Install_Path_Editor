@@ -100,6 +100,7 @@ IF DEFINED PathTSLSteam (
 ECHO:
 
 :redirect
+ECHO:
 ECHO   Please choose your desired operation:
 ECHO:
 ECHO		1) Scan the registry for installed game version keys
@@ -114,6 +115,7 @@ IF ERRORLEVEL 2 GOTO :start_k1_key
 IF ERRORLEVEL 1 GOTO :scan_reg
 
 :start_k1_key
+ECHO:
 IF "%PathK1CD%"=="" (
 		CHOICE /m "		The K1 CD version registry key does not exist. Do you want to create it?"
 		IF ERRORLEVEL 2 GOTO :redirect
@@ -121,11 +123,13 @@ IF "%PathK1CD%"=="" (
 ) ELSE ( GOTO :change_k1_key )
 
 :change_k1_key
+ECHO:
 CHOICE /m "		Do you want to change the existing K1 CD version registry key install path value?"
 IF ERRORLEVEL 2 GOTO :redirect
 IF ERRORLEVEL 1 GOTO :create_k1_key
 
 :create_k1_key
+ECHO:
 ECHO   Select which game version install path you want to use:
 ECHO:
 ECHO		1) Use GOG path
@@ -136,26 +140,31 @@ CHOICE /C:123 /N /M "		Enter your choice number:		"
 IF ERRORLEVEL 3 GOTO :redirect
 IF ERRORLEVEL 2 IF DEFINED PathK1Steam (
 						REG ADD "HKLM\SOFTWARE\BioWare\SW\KOTOR" /v Path /d "%PathK1Steam%" /reg:32 /f >nul 2>&1 
+						ECHO:
 						ECHO		Created K1 CD version registry key using Steam path.
 						ECHO:
 						GOTO :redirect
 					) ELSE (
+						ECHO:
 						ECHO		No K1 Steam version registry key found!
 						GOTO :create_k1_key
 					)
 )
 IF ERRORLEVEL 1 IF DEFINED PathK1GOG (
 						REG ADD "HKLM\SOFTWARE\BioWare\SW\KOTOR" /v Path /d "%PathK1GOG%" /reg:32 /f >nul 2>&1 
+						ECHO:
 						ECHO		Created K1 CD version registry key using GOG path.
 						ECHO:
 						GOTO :redirect
 					) ELSE (
+						ECHO:
 						ECHO		No K1 GOG version registry key found!
 						GOTO :create_k1_key
 					)
 )
 
 :start_tsl_key
+ECHO:
 IF "%PathTSLCD%"=="" (
 		CHOICE /m "		The TSL CD version registry key does not exist. Do you want to create it?"
 		IF ERRORLEVEL 2 GOTO :redirect
@@ -163,11 +172,13 @@ IF "%PathTSLCD%"=="" (
 ) ELSE ( GOTO :change_tsl_key )
 
 :change_tsl_key
+ECHO:
 CHOICE /m "		Do you want to change the existing TSL CD version registry key install path value?"
 IF ERRORLEVEL 2 GOTO :redirect
 IF ERRORLEVEL 1 GOTO :create_tsl_key
 
 :create_tsl_key
+ECHO:
 ECHO   Select which game version install path you want to use:
 ECHO:
 ECHO		1) Use GOG path
@@ -178,20 +189,24 @@ CHOICE /C:123 /N /M "		Enter your choice number:		"
 IF ERRORLEVEL 3 GOTO :redirect
 IF ERRORLEVEL 2 IF DEFINED PathTSLSteam (
 						REG ADD "HKLM\SOFTWARE\BioWare\LucasArts\KOTOR2" /v Path /d "%PathTSLSteam%" /reg:32 /f >nul 2>&1 
+						ECHO:
 						ECHO		Created TSL CD version registry key using Steam path.
 						ECHO:
 						GOTO :redirect
 					) ELSE (
+						ECHO:
 						ECHO		No TSL Steam version registry key found!
 						GOTO :create_tsl_key
 					)
 )
 IF ERRORLEVEL 1 IF DEFINED PathTSLGOG (
 						REG ADD "HKLM\SOFTWARE\BioWare\LucasArts\KOTOR2" /v Path /d "%PathTSLGOG%" /reg:32 /f >nul 2>&1 
+						ECHO:
 						ECHO		Created TSL CD version registry key using GOG path.
 						ECHO:
 						GOTO :redirect
 					) ELSE (
+						ECHO:
 						ECHO		No TSL GOG version registry key found!
 						GOTO :create_tsl_key
 					)
